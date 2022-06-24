@@ -18,3 +18,9 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware'=>['auth']], function(){
+    //это позволит охватить все CRUD маршруты контроллера
+//читать в ресурс-контроллерах
+    Route::resource('task', 'TaskController',['except'=>['show']]);
+});
