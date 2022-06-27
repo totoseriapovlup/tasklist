@@ -80,11 +80,13 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Task $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $this->authorize('destroy', $task);//что бы не удаляли не свои задачи
+        $task->delete();
+        return redirect(route('task.index'));
     }
 }
